@@ -1,21 +1,37 @@
-/*---------------------------------------------------------------------------------------------
- *  Copyright (c) Microsoft Corporation. All rights reserved.
- *  Licensed under the MIT License. See License.txt in the project root for license information.
- *--------------------------------------------------------------------------------------------*/
-
-'use strict';
-
 const express = require('express');
+const path = require('path');
 
-// Constants
-const PORT = 3000;
-const HOST = '0.0.0.0';
-
-// App
 const app = express();
+const port = 3000; // Choose the port you want to use for the server
+const { exec } = require("child_process");
+
+app.use(express.static(path.join(__dirname, 'client', 'build')));
+
 app.get('/', (req, res) => {
-	res.send('Hello remote world!\n');
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
 });
 
-app.listen(PORT, HOST);
-console.log(`Running on http://${HOST}:${PORT}`);
+app.get('/data', (req, res) => {
+  res.send({ 1: "hello" });
+});
+
+app.get('/list_files', (req, res) => {
+
+  exec("ls -la", (error, stdout, stderr) => {
+    if (error) {
+      console.log(`error: ${error.message}`);
+      return;
+    }
+    if (stderr) {
+      console.log(`stderr: ${stderr}`);
+      return;
+    }
+    res.send(stdout);
+  });
+
+});
+
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});

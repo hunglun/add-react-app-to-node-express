@@ -1,3 +1,9 @@
+# Add React JS App to Express Server:
+npx create-react-app client
+cd client ; npm run build  
+node server.js
+See server.js for how react app is added.
+
 # Try Out Development Containers: Node.js
 
 [![Open in Dev Containers](https://img.shields.io/static/v1?label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/microsoft/vscode-remote-try-node)
