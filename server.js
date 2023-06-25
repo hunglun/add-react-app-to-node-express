@@ -1,4 +1,5 @@
 const express = require('express');
+const ssh = require('./ssh-example')
 const path = require('path');
 
 const app = express();
@@ -16,7 +17,7 @@ app.get('/data', (req, res) => {
 });
 
 app.get('/list_files', (req, res) => {
-
+  
   exec("ls -la", (error, stdout, stderr) => {
     if (error) {
       console.log(`error: ${error.message}`);
@@ -27,6 +28,15 @@ app.get('/list_files', (req, res) => {
       return;
     }
     res.send(stdout);
+  });
+
+});
+
+app.get('/list_remote_files', (req, res) => {
+  
+  ssh.exec("ls -l", (result) => {
+    
+    res.send(result.stdout);
   });
 
 });

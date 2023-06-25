@@ -4,6 +4,29 @@ cd client ; npm run build
 node server.js
 See server.js for how react app is added.
 
+# Use ssh library in node js
+Install 
+`npm install node-ssh`
+
+Example
+```
+const node_ssh = require('node-ssh');
+const ssh = new node_ssh['NodeSSH']()
+require('dotenv').config();
+ssh
+  .connect({
+    host: process.env.SSH_host,
+    username: process.env.SSH_user,
+    privateKey: process.env.SSH_privatekey,
+    passphrase: process.env.SSH_passphrase
+  })
+  .then(() => {
+    ssh.execCommand('uname -a', { cwd: '~' }).then((result) => {
+      console.log('STDOUT: ' + result.stdout);
+      console.log('STDERR: ' + result.stderr);
+    });
+  });
+```
 # Try Out Development Containers: Node.js
 
 [![Open in Dev Containers](https://img.shields.io/static/v1?label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/microsoft/vscode-remote-try-node)

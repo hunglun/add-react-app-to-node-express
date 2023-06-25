@@ -6,6 +6,8 @@ import React, { useState, useEffect } from 'react';
 const RemoteData = () => {
   const [responseContent, setResponseContent] = useState('');
   const [listedFiles, setListedFiles] = useState('');
+  const [listedRemoteFiles, setListedRemoteFiles] = useState('');
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,6 +19,11 @@ const RemoteData = () => {
         const response2 = await fetch('/list_files');
         const data2 = await response2.text();
         setListedFiles(data2);
+
+        const response3 = await fetch('/list_remote_files');
+        const data3 = await response3.text();
+        setListedRemoteFiles(data3);
+
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -30,6 +37,8 @@ const RemoteData = () => {
       <h1>HTTP Response Content</h1>
       <pre>{responseContent}</pre>
       <pre>{listedFiles}</pre>
+      <pre>{listedRemoteFiles}</pre>
+
     </div>
   );
 };
