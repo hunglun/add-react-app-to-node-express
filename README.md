@@ -1,11 +1,15 @@
 # Add React JS App to Express Server:
 npx create-react-app client
+
 cd client ; npm run build  
+
 node server.js
+
 See server.js for how react app is added.
 
 # Use ssh library in node js
 Install 
+
 `npm install node-ssh`
 
 Example
